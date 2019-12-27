@@ -28,7 +28,7 @@ print("{0} cores available, going to use {1} for parallel computation".format(mu
 directory = os.fsencode('./data/node_information/text')
 
 node_info = {}
-def processFile(file, max_node = 999999):
+def processFile(file, max_node = 2):
     '''
         write an entry on node_info as node_nb : text where node info is the title of the doc
     '''    
@@ -51,7 +51,7 @@ node_info = {int(k):v for k,v in node_info.items()}
 with open('./ISAE_Comp/out/node_info.json', 'w') as file:
     json.dump(node_info, file)
 
-print("Finished loading {0} text data to dictionnary and saved it to file").format(len(node_info.keys()))
+print("Finished loading {0} text data to dictionnary and saved it to file".format(len(node_info.keys())))
 
 
 '''
@@ -68,14 +68,14 @@ def tokenize_dict(node):
     node_info_tokenized[node] = tokenizer.tokenize(node_info[node])
 
 print("Starting tokenization")  
-Parallel(n_jobs = -2, require='sharedmem')(delayed(tokenize_dic)(node) for node in node_info)
+Parallel(n_jobs = -2, require='sharedmem')(delayed(tokenize_dict)(node) for node in node_info)
 
 #making sure keys are integers
 node_info_tokenized = {int(k):v for k,v in node_info_tokenized.items()}
 
 with open('./ISAE_Comp/out/node_info_token.json', 'w') as file:
     json.dump(node_info_tokenized, file)
-print("Finished tokenizing {0} entries to dictionnary and saved it to file").format(len(node_info_tokenized.keys()))
+print("Finished tokenizing {0} entries to dictionnary and saved it to file".format(len(node_info_tokenized.keys())))
 
 
 
@@ -103,7 +103,7 @@ Parallel(n_jobs = -2, require='sharedmem')(delayed(remove_stopwords)(node) for n
 
 with open('./ISAE_Comp/out/node_info_filtered.json', 'w') as file:
     json.dump(node_info_filtered, file)
-print("Finished cleaning {0} entries of dictionnary and saved it to file").format(len(node_info_filtered.keys()))
+print("Finished cleaning {0} entries of dictionnary and saved it to file".format(len(node_info_filtered.keys())))
 
 
 '''
@@ -126,7 +126,7 @@ Parallel(n_jobs = -2, require='sharedmem')(delayed(stemming_lemming)(node) for n
 
 with open('./ISAE_Comp/out/node_info_snl.json', 'w') as file:
     json.dump(node_info_snl, file)
-print("Finished s&l on {0} entries of dictionnary and saved it to file").format(len(node_info_snl.keys()))
+print("Finished s&l on {0} entries of dictionnary and saved it to file".format(len(node_info_snl.keys())))
 
 '''
     Building the full dictionnary of the corpus
@@ -146,7 +146,7 @@ Parallel(n_jobs = -2, require='sharedmem')(delayed(build_voca)(node) for node in
 
 with open('./ISAE_Comp/out/dict.json', 'w') as file:
     json.dump(dict_full, file)
-print("Finished building the dictionnary, {0} word entries saved to file").format(len(dict_full))
+print("Finished building the dictionnary, {0} word entries saved to file".format(len(dict_full)))
 
 
 '''
@@ -168,7 +168,7 @@ Parallel(n_jobs = -2, require='sharedmem')(delayed(build_bag)(node) for node in 
 
 with open('./ISAE_Comp/out/BOW.json', 'w') as file:
     json.dump(bow, file)
-print("Finished building BoW representation, {0} entries saved to file").format(len(bow.keys()))
+print("Finished building BoW representation, {0} entries saved to file".format(len(bow.keys())))
 
 
 '''
@@ -190,12 +190,12 @@ print("Finished computing PCA, model saved to file")
 
 #applying PCA reduction to all the BoW
 print("Starting PCA transformation")
-bow_pca = pca.transform(lis(bow.values()))
+bow_pca = pca.transform(list(bow.values()))
 
 #back into dict shape
 bow_pca = dict(zip(bow.keys(), bow_pca.tolist()))
 with open('./ISAE_Comp/out/BOW_pca.json', 'w') as file:
     json.dump(bow_pca, file)
-print("Finished applying PCA, {0} entries saved to file").format(len(bow_pca.keys()))
+print("Finished applying PCA, {0} entries saved to file".format(len(bow_pca.keys())))
 
 print('Program finished as expected')
