@@ -19,7 +19,7 @@ from joblib import Parallel, delayed
 import multiprocessing
 import os
 
-print("{0} cores available, going to use {1} for parallel computation".format(multiprocessing.cpu_count(), multiprocessing.cpu_count()-1]))
+print("{0} cores available, going to use {1} for parallel computation".format(multiprocessing.cpu_count(), multiprocessing.cpu_count()-1))
 
 '''
     Load text data in appropriate format
