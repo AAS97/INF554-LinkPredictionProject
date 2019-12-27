@@ -28,7 +28,7 @@ print("{0} cores available, going to use {1} for parallel computation".format(mu
 directory = os.fsencode('./data/node_information/text')
 
 node_info = {}
-def processFile(file, max_node = 2):
+def processFile(file, max_node = 9999999):
     '''
         write an entry on node_info as node_nb : text where node info is the title of the doc
     '''    
