@@ -10,4 +10,4 @@
 #SBATCH -e ISAE_Comp/log/slurm.%j.err # STDERR
 
 conda activate myenv
-python3 /scratch/students/a.d-andoque/INF554-LinkPredictionProject/ISAE_Comp/Buid_dict_and_bow.py
+python3 /scratch/students/a.d-andoque/INF554-LinkPredictionProject/ISAE_Comp/Build_dict_and_bow.py
