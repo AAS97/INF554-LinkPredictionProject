@@ -1,8 +1,9 @@
 #!/bin/bash
 
-#SBATCH --ntasks-per-node=24
-#SBATCH --time=2-00:00:00
+#SBATCH --ntasks-per-node=12
+#SBATCH --time=24:00:00
 #SBATCH --begin=now
+#SBATCH -p bigmem
 #SBATCH --mail-user=aubry.d-andoque-de-seriege@student.isae-supaero.fr
 #SBATCH --mail-type=FAIL,END
 #SBATCH --job-name=PCA
