@@ -5,9 +5,9 @@
 #SBATCH --begin=now
 #SBATCH --mail-user=aubry.d-andoque-de-seriege@student.isae-supaero.fr
 #SBATCH --mail-type=FAIL,END
-#SBATCH --job-name=Dict_building
+#SBATCH --job-name=PCA
 #SBATCH -o ISAE_Comp/log/slurm.%j.out # STDOUT
 #SBATCH -e ISAE_Comp/log/slurm.%j.err # STDERR
 
 conda activate myenv
-python3 /scratch/students/a.d-andoque/INF554-LinkPredictionProject/ISAE_Comp/Buid_dict_and_bow.py
+python3 /scratch/students/a.d-andoque/INF554-LinkPredictionProject/ISAE_Comp/pca.py

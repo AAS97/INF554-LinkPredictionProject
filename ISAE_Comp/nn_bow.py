@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 import json
+import pickle
 
 with open('./ISAE_Comp/out/BOW_pca.json', 'r') as file:
     bow = json.load(file)
@@ -21,22 +22,24 @@ with open('./data/training.txt', 'r') as file:
         y.append(line[2])
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
-print("Training set legnth : {0}   Testing set length : {1}".format(len(X_train), len(X_test)))
+print("Training set legnth : {0}   Testing set length : {1}".format(len(X_train), len(X_test)), flush=True)
 
 
 mlp = MLPClassifier(verbose=True)
 
 mlp.fit(X_train,y_train)
+pickle.dump(mlp, open('./ISAE_Comp/out/mlp_model.sav', 'wb'))
+print("Finished fitting, model saved to file", flush=True)
 
 prediction = list(mlp.predict(X_test))
 
 with open('./ISAE_Comp/out/prediction.json',"w") as file:
     json.dump(prediction, file)
-print("Prediction wrote to file")
+print("Prediction wrote to file", flush=True )
 
-print("Getting {0} % accuracy".format(accuracy_score(y_test, prediction, normalize=False)/len(X_test)))
-print("Confusion Matrix")
-print(confusion_matrix(y_test, prediction)/len(X_test))
+print("Getting {0} % accuracy".format(accuracy_score(y_test, prediction, normalize=False)/len(X_test)), flush=True)
+print("Confusion Matrix", flush=True)
+print(confusion_matrix(y_test, prediction)/len(X_test), flush=True)
 
 
 
