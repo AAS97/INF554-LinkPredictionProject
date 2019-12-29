@@ -34,8 +34,8 @@ def processFile(file, max_node = 9999999):
     '''    
     filename = os.fsdecode(file)
     if filename.endswith(".txt") and int(filename[:-4]) < max_node :
-        #, encoding='utf-8', errors='ignore'
-         with open('./data/node_information/text/'+filename, 'r') as cur_file:
+        #, encoding='utf-8', 
+         with open('./data/node_information/text/'+filename, 'r', errors='ignore') as cur_file:
             node_info[filename[:-4]] = ''' '''
             for line in cur_file:
                 node_info[filename[:-4]] += line
