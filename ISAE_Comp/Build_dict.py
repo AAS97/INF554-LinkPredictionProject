@@ -16,10 +16,10 @@ texts = node_info_snl.values()
 dct = Dictionary(texts)  # initialize a Dictionary
 print("Raw dict contains {0} word".format(len(dct)), flush=True)
 #dct.save('./ISAE_Comp/out/mydict_full.dict')
-pickle.dump(dct, open("./ISAE_Comp/out/mydict_full.dict", "wb"))
+#pickle.dump(dct, open("./ISAE_Comp/out/mydict_full.dict", "wb"))
 
 #filter words that are at least in 2 doc but in less than half of the docs
-dct.filter_extremes(no_below=3, no_above=0.5, keep_n = None)
+dct.filter_extremes(no_below=3, no_above=0.20, keep_n = None)
 print("Reduced dict contains {0} word".format(len(dct)), flush=True)
 #dct.save("./ISAE_Comp/out/reduced_dict.dict")
 pickle.dump(dct, open("./ISAE_Comp/out/reduced_dict.dict", "wb"))

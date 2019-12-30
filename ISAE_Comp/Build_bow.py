@@ -4,6 +4,11 @@ import pickle
 import time
 import numpy as np
 
+from joblib import Parallel, delayed
+import multiprocessing
+import os
+
+
 
 reduced_dict = pickle.load(open("./ISAE_Comp/out/reduced_dict.dict", "rb"))
 with open('./ISAE_Comp/out/node_info_snl.json','r') as f:
@@ -16,8 +21,8 @@ def build_bag(node):
         Build the BoW representation for node
     '''
     bow[node] = np.zeros(shape=len(dct), dtype = int)
-    ind, freq =  dct.doc2bow(node_info_snl[node])
-    bow[int(node)][ind] = freq            
+    for ind, freq in dct.doc2bow(node_info_snl[node]):
+        bow[int(node)][ind] = freq            
     bow[node] = bow[node].tolist()
 
 print("Starting building BoW", flush=True)
